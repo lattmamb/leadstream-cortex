@@ -1,14 +1,16 @@
 
 import { Header } from "@/components/Layout/Header";
 import { ChatInterface } from "@/components/Chat/ChatInterface";
+import { LampDemo } from "@/components/ui/lamp";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-tesla-gray">
+    <div className="min-h-screen bg-slate-950">
       <Header />
-      <main className="pt-16">
+      <LampDemo />
+      <div className="relative z-10">
         <ChatInterface />
-      </main>
+      </div>
     </div>
   );
 };
