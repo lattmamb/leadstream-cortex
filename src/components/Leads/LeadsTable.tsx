@@ -1,13 +1,8 @@
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { type Lead } from "@/pages/Leads";
+import DisplayCards from "@/components/ui/display-cards";
+import { type DisplayCardProps } from "@/components/ui/display-cards";
+import { User, Building2, Star } from "lucide-react";
 
 interface LeadsTableProps {
   leads: Lead[];
@@ -22,65 +17,22 @@ export const LeadsTable = ({ leads, onLeadSelect, searchQuery }: LeadsTableProps
     )
   );
 
-  return (
-    <div className="rounded-md border border-white/10 overflow-hidden">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="text-white/70">Name</TableHead>
-            <TableHead className="text-white/70">Company</TableHead>
-            <TableHead className="text-white/70">Email</TableHead>
-            <TableHead className="text-white/70">Status</TableHead>
-            <TableHead className="text-white/70">Score</TableHead>
-            <TableHead className="text-white/70">Last Contacted</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredLeads.map((lead) => (
-            <TableRow
-              key={lead.id}
-              className="cursor-pointer hover:bg-slate-800/50"
-              onClick={() => onLeadSelect(lead)}
-            >
-              <TableCell className="text-white">{lead.fullName}</TableCell>
-              <TableCell className="text-white/70">{lead.companyName}</TableCell>
-              <TableCell className="text-white/70">{lead.email}</TableCell>
-              <TableCell>
-                <span
-                  className={`inline-block px-2 py-1 rounded-full text-xs ${
-                    {
-                      New: "bg-blue-500/20 text-blue-300",
-                      Contacted: "bg-yellow-500/20 text-yellow-300",
-                      Interested: "bg-purple-500/20 text-purple-300",
-                      "Proposal Sent": "bg-orange-500/20 text-orange-300",
-                      Won: "bg-green-500/20 text-green-300",
-                      Lost: "bg-red-500/20 text-red-300",
-                    }[lead.status]
-                  }`}
-                >
-                  {lead.status}
-                </span>
-              </TableCell>
-              <TableCell>
-                <span
-                  className={`text-sm ${
-                    lead.leadScore >= 80
-                      ? "text-green-400"
-                      : lead.leadScore >= 50
-                      ? "text-yellow-400"
-                      : "text-red-400"
-                  }`}
-                >
-                  {lead.leadScore}
-                </span>
-              </TableCell>
-              <TableCell className="text-white/70">
-                {new Date(lead.lastContactedDate).toLocaleDateString()}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  );
+  const leadCards: DisplayCardProps[] = filteredLeads.map((lead) => ({
+    icon: <User className="size-4 text-white" />,
+    title: lead.fullName,
+    description: lead.companyName,
+    date: new Date(lead.lastContactedDate).toLocaleDateString(),
+    iconClassName: "text-white",
+    titleClassName: "text-white",
+    className: `cursor-pointer hover:-translate-y-2 ${
+      lead.leadScore >= 80
+        ? "border-green-500/30"
+        : lead.leadScore >= 50
+        ? "border-yellow-500/30"
+        : "border-red-500/30"
+    }`,
+    onClick: () => onLeadSelect(lead),
+  }));
+
+  return <DisplayCards cards={leadCards} />;
 };
