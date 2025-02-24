@@ -72,11 +72,11 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
+export const SidebarBody = (props: React.ComponentProps<"div">) => {
   return (
     <>
       <DesktopSidebar {...props} />
-      <MobileSidebar {...(props as React.ComponentProps<"div">)} />
+      <MobileSidebar {...props} />
     </>
   );
 };
@@ -85,15 +85,15 @@ export const DesktopSidebar = ({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof motion.div>) => {
+}: React.ComponentProps<"div">) => {
   const { open, setOpen, animate } = useSidebar();
   return (
-    <motion.div
+    <div
       className={cn(
         "h-full px-4 py-4 hidden md:flex md:flex-col bg-slate-900/50 backdrop-blur-md border-r border-white/10 w-[300px] flex-shrink-0",
         className
       )}
-      animate={{
+      style={{
         width: animate ? (open ? "300px" : "60px") : "300px",
       }}
       onMouseEnter={() => setOpen(true)}
@@ -101,7 +101,7 @@ export const DesktopSidebar = ({
       {...props}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 
@@ -127,14 +127,7 @@ export const MobileSidebar = ({
         </div>
         <AnimatePresence>
           {open && (
-            <motion.div
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-100%", opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
+            <div
               className={cn(
                 "fixed h-full w-full inset-0 bg-slate-900/95 backdrop-blur-md p-10 z-[100] flex flex-col justify-between",
                 className
@@ -147,7 +140,7 @@ export const MobileSidebar = ({
                 <X />
               </div>
               {children}
-            </motion.div>
+            </div>
           )}
         </AnimatePresence>
       </div>
