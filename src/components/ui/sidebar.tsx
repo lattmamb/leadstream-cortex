@@ -4,7 +4,7 @@
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import React, { useState, createContext, useContext } from "react";
-import { AnimatePresence, motion, HTMLMotionProps } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 interface Links {
@@ -72,14 +72,11 @@ export const Sidebar = ({
   );
 };
 
-export const SidebarBody = ({
-  className,
-  ...props
-}: HTMLMotionProps<"div">) => {
+export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
   return (
     <>
-      <DesktopSidebar className={className} {...props} />
-      <MobileSidebar className={className} />
+      <DesktopSidebar {...props} />
+      <MobileSidebar {...(props as React.ComponentProps<"div">)} />
     </>
   );
 };
@@ -88,7 +85,7 @@ export const DesktopSidebar = ({
   className,
   children,
   ...props
-}: HTMLMotionProps<"div">) => {
+}: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar();
   return (
     <motion.div
@@ -108,15 +105,11 @@ export const DesktopSidebar = ({
   );
 };
 
-interface MobileSidebarProps {
-  className?: string;
-  children?: React.ReactNode;
-}
-
 export const MobileSidebar = ({
   className,
   children,
-}: MobileSidebarProps) => {
+  ...props
+}: React.ComponentProps<"div">) => {
   const { open, setOpen } = useSidebar();
   return (
     <>
@@ -124,6 +117,7 @@ export const MobileSidebar = ({
         className={cn(
           "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-slate-900/50 backdrop-blur-md border-b border-white/10 w-full"
         )}
+        {...props}
       >
         <div className="flex justify-end z-20 w-full">
           <Menu
@@ -164,6 +158,7 @@ export const MobileSidebar = ({
 export const SidebarLink = ({
   link,
   className,
+  ...props
 }: {
   link: Links;
   className?: string;
@@ -176,6 +171,7 @@ export const SidebarLink = ({
         "flex items-center justify-start gap-2 group/sidebar py-2",
         className
       )}
+      {...props}
     >
       {link.icon}
       <motion.span
