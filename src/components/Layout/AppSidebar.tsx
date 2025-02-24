@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
-import { LayoutDashboard, UserCog, Settings, LogOut, MessageSquare, Users, Calendar } from "lucide-react";
+import { MessageSquare, Users, Calendar, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 

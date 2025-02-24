@@ -7,7 +7,8 @@ export const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/50 backdrop-blur-md border-b border-white/10">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-white font-semibold text-xl">
+          <Link to="/" className="text-white font-semibold text-xl flex items-center gap-2">
+            <div className="h-5 w-6 bg-cyan-500 rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
             LeadStream
           </Link>
           <nav className="hidden md:flex items-center space-x-8">
