@@ -1,12 +1,14 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { Header } from "@/components/Layout/Header";
+import { ChatInterface } from "@/components/Chat/ChatInterface";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-tesla-gray">
+      <Header />
+      <main className="pt-16">
+        <ChatInterface />
+      </main>
     </div>
   );
 };
