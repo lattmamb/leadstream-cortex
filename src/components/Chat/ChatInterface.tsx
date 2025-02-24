@@ -1,7 +1,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
-
+import { LampDemo } from "@/components/ui/lamp";
 import { ChatMessage } from "./ChatMessage";
 
 export const ChatInterface = () => {
@@ -40,11 +40,15 @@ export const ChatInterface = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] bg-white">
-      <div className="flex-1 overflow-y-auto p-4">
+    <div className="flex flex-col h-[calc(100vh-4rem)]">
+      <div className="absolute inset-0 z-0">
+        <LampDemo />
+      </div>
+      
+      <div className="relative z-10 flex-1 overflow-y-auto p-4 bg-transparent">
         {messages.length === 0 ? (
           <div className="h-full flex items-center justify-center text-gray-400">
-            <p>Start a conversation to generate leads</p>
+            <p className="text-white/80">Start a conversation to generate leads</p>
           </div>
         ) : (
           messages.map((message, index) => (
@@ -57,9 +61,10 @@ export const ChatInterface = () => {
         )}
         <div ref={messagesEndRef} />
       </div>
+      
       <form
         onSubmit={handleSubmit}
-        className="border-t border-gray-100 p-4 bg-white"
+        className="relative z-10 border-t border-white/10 p-4 bg-slate-950/50 backdrop-blur-md"
       >
         <div className="flex gap-4 max-w-4xl mx-auto">
           <input
@@ -67,11 +72,11 @@ export const ChatInterface = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Type your message..."
-            className="flex-1 px-4 py-2 rounded-full border border-gray-200 focus:outline-none focus:border-tesla-black transition-colors"
+            className="flex-1 px-4 py-2 rounded-full border border-white/20 bg-white/10 text-white placeholder:text-white/50 focus:outline-none focus:border-cyan-500 transition-colors"
           />
           <button
             type="submit"
-            className="bg-tesla-black text-white rounded-full p-3 hover:bg-tesla-gray-dark transition-colors"
+            className="bg-cyan-500 text-white rounded-full p-3 hover:bg-cyan-400 transition-colors"
           >
             <Send size={20} />
           </button>

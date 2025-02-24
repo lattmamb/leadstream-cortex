@@ -7,7 +7,6 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-slate-950">
       <Header />
-      <LampDemo />
       <div className="relative z-10">
         <ChatInterface />
       </div>

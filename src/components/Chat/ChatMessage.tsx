@@ -21,10 +21,10 @@ export const ChatMessage = ({
     >
       <div
         className={cn(
-          "max-w-[80%] px-4 py-3 rounded-2xl",
+          "max-w-[80%] px-4 py-3 rounded-2xl backdrop-blur-md",
           isAI
-            ? "bg-gray-100 text-tesla-black"
-            : "bg-tesla-black text-white ml-auto"
+            ? "bg-white/10 text-white/90 border border-white/10"
+            : "bg-cyan-500/90 text-white border border-cyan-400/20 ml-auto"
         )}
       >
         <p className="text-sm md:text-base">{message}</p>
