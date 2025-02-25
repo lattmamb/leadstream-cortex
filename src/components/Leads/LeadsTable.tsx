@@ -17,6 +17,19 @@ export const LeadsTable = ({ leads, onLeadSelect, searchQuery }: LeadsTableProps
     )
   );
 
+  const getPriorityColors = (priority: Lead["priority"]) => {
+    switch (priority) {
+      case "high":
+        return "border-green-500/30 hover:border-green-500/50";
+      case "medium":
+        return "border-yellow-500/30 hover:border-yellow-500/50";
+      case "low":
+        return "border-red-500/30 hover:border-red-500/50";
+      default:
+        return "border-white/10";
+    }
+  };
+
   const leadCards: DisplayCardProps[] = filteredLeads.map((lead) => ({
     icon: <User className="size-4 text-white" />,
     title: lead.fullName,
@@ -24,13 +37,7 @@ export const LeadsTable = ({ leads, onLeadSelect, searchQuery }: LeadsTableProps
     date: new Date(lead.lastContactedDate).toLocaleDateString(),
     iconClassName: "text-white",
     titleClassName: "text-white",
-    className: `cursor-pointer hover:-translate-y-2 ${
-      lead.leadScore >= 80
-        ? "border-green-500/30"
-        : lead.leadScore >= 50
-        ? "border-yellow-500/30"
-        : "border-red-500/30"
-    }`,
+    className: `cursor-pointer hover:-translate-y-2 ${getPriorityColors(lead.priority)}`,
     onClick: () => onLeadSelect(lead),
   }));
 

@@ -20,16 +20,31 @@ export interface Lead {
   status: "New" | "Contacted" | "Interested" | "Proposal Sent" | "Won" | "Lost";
   lastContactedDate: string;
   notes: string;
+  priority: "high" | "medium" | "low";
 }
 
 const Leads = () => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Temporary mock data
+  // Updated mock data with Matthew Lamb and priority levels
   const mockLeads: Lead[] = [
     {
       id: "1",
+      fullName: "Matthew Lamb",
+      companyName: "Atlas Intelligence",
+      jobTitle: "Operations Director",
+      email: "matt@fleet.com",
+      phone: "(217) 827-1305",
+      leadSource: "Walk-in",
+      leadScore: 95,
+      status: "New",
+      lastContactedDate: "2024-03-18",
+      notes: "Initial contact made during walk-in visit. Shows high interest in enterprise solutions.",
+      priority: "high"
+    },
+    {
+      id: "2",
       fullName: "John Doe",
       companyName: "Tech Corp",
       jobTitle: "CEO",
@@ -40,9 +55,10 @@ const Leads = () => {
       status: "Interested",
       lastContactedDate: "2024-03-15",
       notes: "Interested in enterprise plan",
+      priority: "medium"
     },
     {
-      id: "2",
+      id: "3",
       fullName: "Jane Smith",
       companyName: "Innovation Inc",
       jobTitle: "CTO",
@@ -53,6 +69,7 @@ const Leads = () => {
       status: "Proposal Sent",
       lastContactedDate: "2024-03-14",
       notes: "Follow up needed on proposal",
+      priority: "low"
     },
   ];
 
