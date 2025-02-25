@@ -26,9 +26,7 @@ export interface Lead {
 const Leads = () => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-
-  // Updated mock data with Matthew Lamb and priority levels
-  const mockLeads: Lead[] = [
+  const [leads, setLeads] = useState<Lead[]>([
     {
       id: "1",
       fullName: "Matthew Lamb",
@@ -71,7 +69,27 @@ const Leads = () => {
       notes: "Follow up needed on proposal",
       priority: "low"
     },
-  ];
+  ]);
+
+  const handleAddLead = (newLead: Omit<Lead, "id" | "leadScore" | "status" | "lastContactedDate" | "notes" | "priority">) => {
+    const lead: Lead = {
+      ...newLead,
+      id: (leads.length + 1).toString(),
+      leadScore: 50,
+      status: "New",
+      lastContactedDate: new Date().toISOString().split('T')[0],
+      notes: "",
+      priority: "medium"
+    };
+    setLeads([lead, ...leads]);
+  };
+
+  const handleDeleteLead = () => {
+    if (selectedLead) {
+      setLeads(leads.filter(lead => lead.id !== selectedLead.id));
+      setSelectedLead(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-950">
@@ -96,7 +114,7 @@ const Leads = () => {
           <div className="flex gap-6 h-[calc(100vh-16rem)] overflow-hidden">
             <div className="flex-1 overflow-auto">
               <LeadsTable
-                leads={mockLeads}
+                leads={leads}
                 onLeadSelect={setSelectedLead}
                 searchQuery={searchQuery}
               />
@@ -106,7 +124,7 @@ const Leads = () => {
             )}
           </div>
           <div className="absolute bottom-8 right-8">
-            <AddLeadButton />
+            <AddLeadButton onAddLead={handleAddLead} onDeleteLead={handleDeleteLead} selectedLead={selectedLead} />
           </div>
         </div>
       </div>

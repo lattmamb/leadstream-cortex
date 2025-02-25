@@ -12,8 +12,15 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { type Lead } from "@/pages/Leads";
 
-export const AddLeadButton = () => {
+interface AddLeadButtonProps {
+  onAddLead: (newLead: Omit<Lead, "id" | "leadScore" | "status" | "lastContactedDate" | "notes" | "priority">) => void;
+  onDeleteLead: () => void;
+  selectedLead: Lead | null;
+}
+
+export const AddLeadButton = ({ onAddLead, onDeleteLead, selectedLead }: AddLeadButtonProps) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -26,7 +33,7 @@ export const AddLeadButton = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle the form submission
+    onAddLead(formData);
     toast.success("Lead added successfully!");
     setShowAddDialog(false);
     setFormData({
@@ -40,7 +47,12 @@ export const AddLeadButton = () => {
   };
 
   const handleDelete = () => {
-    toast.error("This feature is not implemented yet");
+    if (!selectedLead) {
+      toast.error("Please select a lead to delete");
+      return;
+    }
+    onDeleteLead();
+    toast.success("Lead deleted successfully");
   };
 
   return (
@@ -69,18 +81,21 @@ export const AddLeadButton = () => {
                 value={formData.fullName}
                 onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                 className="bg-slate-800 border-white/10"
+                required
               />
               <Input
                 placeholder="Company Name"
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                 className="bg-slate-800 border-white/10"
+                required
               />
               <Input
                 placeholder="Job Title"
                 value={formData.jobTitle}
                 onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
                 className="bg-slate-800 border-white/10"
+                required
               />
               <Input
                 placeholder="Email"
@@ -88,18 +103,21 @@ export const AddLeadButton = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="bg-slate-800 border-white/10"
+                required
               />
               <Input
                 placeholder="Phone"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 className="bg-slate-800 border-white/10"
+                required
               />
               <Input
                 placeholder="Lead Source"
                 value={formData.leadSource}
                 onChange={(e) => setFormData({ ...formData, leadSource: e.target.value })}
                 className="bg-slate-800 border-white/10"
+                required
               />
               <Button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-600">
                 Add Lead
