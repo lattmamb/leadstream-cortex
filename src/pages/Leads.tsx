@@ -78,10 +78,9 @@ const Leads = () => {
       <Header />
       <div className="flex h-[calc(100vh-4rem)]">
         <AppSidebar />
-        <div className="flex-1 p-8 overflow-hidden">
+        <div className="flex-1 p-8 overflow-hidden relative">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold text-white">Leads</h1>
-            <AddLeadButton />
           </div>
           <div className="flex items-center gap-4 mb-6">
             <div className="relative flex-1 max-w-md">
@@ -105,6 +104,9 @@ const Leads = () => {
             {selectedLead && (
               <LeadsSidebar lead={selectedLead} onClose={() => setSelectedLead(null)} />
             )}
+          </div>
+          <div className="absolute bottom-8 right-8">
+            <AddLeadButton />
           </div>
         </div>
       </div>
