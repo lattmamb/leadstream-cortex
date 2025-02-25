@@ -1,6 +1,6 @@
 
-import { BackgroundPaths } from "@/components/ui/background-paths";
+import { VercelV0Chat } from "@/components/ui/code";
 
-export function DemoBackgroundPaths() {
-    return <BackgroundPaths title="Background Paths" />;
+export function Demo() {
+    return <VercelV0Chat />;
 }
