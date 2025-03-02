@@ -23,11 +23,11 @@ export const ChatMessage = ({
         className={cn(
           "max-w-[80%] px-4 py-3 rounded-2xl backdrop-blur-md",
           isAI
-            ? "bg-white/10 text-white/90 border border-white/10"
-            : "bg-cyan-500/90 text-white border border-cyan-400/20 ml-auto"
+            ? "bg-black/20 text-white/90 border border-white/10"
+            : "bg-primary text-white border border-primary/20 ml-auto"
         )}
       >
-        <p className="text-sm md:text-base">{message}</p>
+        <p className="text-sm md:text-base whitespace-pre-line">{message}</p>
         <span className="text-xs opacity-50 mt-1 block">{timestamp}</span>
       </div>
     </div>

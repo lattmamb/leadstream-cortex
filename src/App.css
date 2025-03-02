@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -12,10 +13,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #E31937aa);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #E31937aa);
 }
 
 @keyframes logo-spin {
@@ -39,4 +40,42 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Tesla-inspired glassmorphism */
+.tesla-glass {
+  background: rgba(26, 31, 44, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(244, 244, 244, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Tesla-inspired button */
+.tesla-button {
+  background-color: #E31937;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 24px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.tesla-button:hover {
+  background-color: #c01730;
+}
+
+/* Tesla-inspired inputs */
+.tesla-input {
+  background-color: #F4F4F4;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 16px;
+  width: 100%;
+  color: #1A1F2C;
+}
+
+.tesla-input:focus {
+  outline: 2px solid #E31937;
 }
