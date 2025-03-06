@@ -2,6 +2,7 @@
 import { useRef, useEffect } from "react";
 import { ChatMessage } from "./ChatMessage";
 import { TextShimmerWave } from "@/components/ui/text-shimmer-wave";
+import { Bot } from "lucide-react";
 
 interface Message {
   text: string;

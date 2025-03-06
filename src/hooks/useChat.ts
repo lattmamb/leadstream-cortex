@@ -2,17 +2,21 @@
 import { useState, useEffect } from "react";
 import { toast } from "@/components/ui/use-toast";
 
-interface Message {
-  text: string;
-  isAI: boolean;
-}
-
-interface Lead {
+export interface Lead {
+  id?: string;
   name: string;
   company: string;
   email: string;
   position: string;
   status: string;
+  phone?: string;
+  leadSource?: string;
+  createdAt?: Date;
+}
+
+interface Message {
+  text: string;
+  isAI: boolean;
 }
 
 export const useChat = () => {
@@ -41,25 +45,37 @@ export const useChat = () => {
     setTimeout(() => {
       const newLeads: Lead[] = [
         {
+          id: `lead-${Date.now()}-1`,
           name: "John Smith",
           company: "TechNova Inc",
           email: "john.smith@technova.com",
           position: "CTO",
-          status: "New"
+          status: "New",
+          phone: "555-123-4567",
+          leadSource: "AI Generated",
+          createdAt: new Date()
         },
         {
+          id: `lead-${Date.now()}-2`,
           name: "Sarah Johnson",
           company: "Quantum Solutions",
           email: "sarah.j@quantumsol.com",
           position: "VP of Operations",
-          status: "New"
+          status: "New",
+          phone: "555-234-5678",
+          leadSource: "AI Generated",
+          createdAt: new Date()
         },
         {
+          id: `lead-${Date.now()}-3`,
           name: "Michael Chen",
           company: "DataSphere Analytics",
           email: "m.chen@datasphere.ai",
           position: "Head of Innovation",
-          status: "New"
+          status: "New",
+          phone: "555-345-6789",
+          leadSource: "AI Generated",
+          createdAt: new Date()
         }
       ];
       

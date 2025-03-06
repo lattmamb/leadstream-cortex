@@ -16,7 +16,7 @@ export const ChatInterface = () => {
   } = useChat();
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)]">
+    <div className="flex flex-col h-[calc(100vh-4rem)] bg-white relative overflow-hidden">
       <ChatBackground showV0Interface={showV0Interface} />
       
       <InterfaceSwitcher 
@@ -24,14 +24,16 @@ export const ChatInterface = () => {
         toggleChatInterface={toggleChatInterface}
       />
       
-      <ChatContent
-        showV0Interface={showV0Interface}
-        messages={messages}
-        input={input}
-        setInput={setInput}
-        isLoading={isLoading}
-        handleSubmit={handleSubmit}
-      />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <ChatContent
+          showV0Interface={showV0Interface}
+          messages={messages}
+          input={input}
+          setInput={setInput}
+          isLoading={isLoading}
+          handleSubmit={handleSubmit}
+        />
+      </div>
     </div>
   );
 };

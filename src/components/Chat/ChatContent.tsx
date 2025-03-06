@@ -3,6 +3,7 @@ import { VercelV0Chat } from "@/components/ui/v0-ai-chat";
 import { WelcomeScreen } from "./WelcomeScreen";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
+import { Bot } from "lucide-react";
 
 interface ChatContentProps {
   showV0Interface: boolean;
@@ -28,7 +29,7 @@ export const ChatContent = ({
           <VercelV0Chat />
         </div>
       ) : (
-        <>
+        <div className="flex flex-col h-full">
           {messages.length === 0 ? (
             <WelcomeScreen setInput={setInput} />
           ) : (
@@ -40,7 +41,7 @@ export const ChatContent = ({
             handleSubmit={handleSubmit}
             isLoading={isLoading}
           />
-        </>
+        </div>
       )}
     </>
   );

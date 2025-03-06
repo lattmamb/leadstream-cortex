@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { SwitchHorizontal } from "lucide-react";
 
 interface InterfaceSwitcherProps {
   showV0Interface: boolean;
@@ -8,13 +9,15 @@ interface InterfaceSwitcherProps {
 
 export const InterfaceSwitcher = ({ showV0Interface, toggleChatInterface }: InterfaceSwitcherProps) => {
   return (
-    <div className="relative z-10 flex justify-end mb-2 px-4 pt-4">
+    <div className="relative z-10 flex justify-end pt-4 pr-4">
       <Button 
         variant="outline" 
-        className="text-xs bg-[#2A2F3C]/50 text-white/70 border-[#2A2F3C]/80 hover:bg-[#2A2F3C]/80"
+        size="sm"
+        className="text-xs bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-100"
         onClick={toggleChatInterface}
       >
-        {showV0Interface ? "Back to Chat" : "Try V0 Interface"}
+        <SwitchHorizontal size={14} className="mr-1" />
+        {showV0Interface ? "ChatGPT Style" : "V0 Style"}
       </Button>
     </div>
   );
