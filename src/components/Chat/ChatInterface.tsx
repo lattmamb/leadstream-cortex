@@ -7,6 +7,7 @@ import { TextShimmerWave } from "@/components/ui/text-shimmer-wave";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { VercelV0Chat } from "@/components/ui/v0-ai-chat";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 interface Lead {
   name: string;
@@ -142,9 +143,19 @@ export const ChatInterface = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
-      <div className="absolute inset-0 z-0">
-        <LampDemo />
-      </div>
+      {!showV0Interface && (
+        <div className="absolute inset-0 z-0">
+          <BackgroundBeamsWithCollision className="h-full dark:from-[#1A1F2C] dark:to-[#1A1F2C]/80 bg-gradient-to-b from-[#1A1F2C] to-[#1A1F2C]/80">
+            <div className="absolute inset-0 bg-[#1A1F2C]/30 backdrop-blur-sm"></div>
+          </BackgroundBeamsWithCollision>
+        </div>
+      )}
+      
+      {showV0Interface && (
+        <div className="absolute inset-0 z-0">
+          <LampDemo />
+        </div>
+      )}
       
       <div className="relative z-10 flex justify-end mb-2 px-4">
         <Button 
