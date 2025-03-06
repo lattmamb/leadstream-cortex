@@ -3,6 +3,7 @@ import { useChat } from "@/hooks/useChat";
 import { ChatBackground } from "./ChatBackground";
 import { ChatContent } from "./ChatContent";
 import { InterfaceSwitcher } from "./InterfaceSwitcher";
+import { useState } from "react";
 
 export const ChatInterface = () => {
   const {
@@ -18,6 +19,8 @@ export const ChatInterface = () => {
     deleteChat,
     createNewChat
   } = useChat();
+  
+  const [currentMode, setCurrentMode] = useState("balanced");
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-white relative overflow-hidden">
@@ -26,6 +29,8 @@ export const ChatInterface = () => {
       <InterfaceSwitcher 
         showV0Interface={showV0Interface}
         toggleChatInterface={toggleChatInterface}
+        currentMode={currentMode}
+        setCurrentMode={setCurrentMode}
       />
       
       <div className="flex-1 flex flex-col overflow-hidden">
@@ -40,6 +45,8 @@ export const ChatInterface = () => {
           selectChat={selectChat}
           deleteChat={deleteChat}
           createNewChat={createNewChat}
+          currentMode={currentMode}
+          setCurrentMode={setCurrentMode}
         />
       </div>
     </div>

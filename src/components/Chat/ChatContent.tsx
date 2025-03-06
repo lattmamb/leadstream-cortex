@@ -4,6 +4,9 @@ import { WelcomeScreen } from "./WelcomeScreen";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
 import { RecentChat } from "@/hooks/useChat";
+import { SwipeableRecentChats } from "./SwipeableRecentChats";
+import { AIModeSelector } from "./AIModeSelector";
+import { useState } from "react";
 
 interface ChatContentProps {
   showV0Interface: boolean;
@@ -16,6 +19,8 @@ interface ChatContentProps {
   selectChat: (chat: RecentChat) => void;
   deleteChat: (id: string) => void;
   createNewChat: () => void;
+  currentMode: string;
+  setCurrentMode: (mode: string) => void;
 }
 
 export const ChatContent = ({
@@ -28,8 +33,16 @@ export const ChatContent = ({
   recentChats,
   selectChat,
   deleteChat,
-  createNewChat
+  createNewChat,
+  currentMode,
+  setCurrentMode
 }: ChatContentProps) => {
+  const [isSwipeableExpanded, setIsSwipeableExpanded] = useState(false);
+
+  const toggleSwipeableExpanded = () => {
+    setIsSwipeableExpanded(!isSwipeableExpanded);
+  };
+
   return (
     <>
       {showV0Interface ? (
@@ -43,16 +56,38 @@ export const ChatContent = ({
           ) : (
             <MessageList messages={messages} isLoading={isLoading} />
           )}
-          <ChatInput 
-            input={input}
-            setInput={setInput}
-            handleSubmit={handleSubmit}
-            isLoading={isLoading}
-            recentChats={recentChats}
-            selectChat={selectChat}
-            deleteChat={deleteChat}
-            createNewChat={createNewChat}
-          />
+          
+          <div className="relative">
+            {/* Swipeable Recent Chats */}
+            <SwipeableRecentChats
+              isExpanded={isSwipeableExpanded}
+              recentChats={recentChats}
+              selectChat={selectChat}
+              deleteChat={deleteChat}
+              createNewChat={createNewChat}
+            />
+            
+            {/* Chat Input with AI Mode Selector */}
+            <div className="relative">
+              <ChatInput 
+                input={input}
+                setInput={setInput}
+                handleSubmit={handleSubmit}
+                isLoading={isLoading}
+                recentChats={recentChats}
+                selectChat={selectChat}
+                deleteChat={deleteChat}
+                createNewChat={createNewChat}
+              />
+              
+              <AIModeSelector
+                currentMode={currentMode}
+                setCurrentMode={setCurrentMode}
+                isExpanded={isSwipeableExpanded}
+                toggleExpanded={toggleSwipeableExpanded}
+              />
+            </div>
+          </div>
         </div>
       )}
     </>
