@@ -1,136 +1,135 @@
-
-import { Button } from "@/components/ui/button";
-import { Plus, Trash2 } from "lucide-react";
+import React, { useState } from 'react';
+import { Plus } from 'lucide-react';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { toast } from "sonner";
-import { type Lead } from "@/pages/Leads";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useToast } from "@/components/ui/use-toast"
 
 interface AddLeadButtonProps {
-  onAddLead: (newLead: Omit<Lead, "id" | "leadScore" | "status" | "lastContactedDate" | "notes" | "priority">) => void;
-  onDeleteLead: () => void;
-  selectedLead: Lead | null;
+  addLead: (lead: { name: string; company: string; position: string; email: string; phone: string; leadSource: string; }) => void;
 }
 
-export const AddLeadButton = ({ onAddLead, onDeleteLead, selectedLead }: AddLeadButtonProps) => {
-  const [showAddDialog, setShowAddDialog] = useState(false);
+export const AddLeadButton = ({ addLead }: AddLeadButtonProps) => {
+  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: "",
-    companyName: "",
-    jobTitle: "",
-    email: "",
-    phone: "",
-    leadSource: "",
+    fullName: '',
+    companyName: '',
+    jobTitle: '',
+    email: '',
+    phone: '',
+    leadSource: ''
   });
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onAddLead(formData);
-    toast.success("Lead added successfully!");
-    setShowAddDialog(false);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
-      fullName: "",
-      companyName: "",
-      jobTitle: "",
-      email: "",
-      phone: "",
-      leadSource: "",
+      ...formData,
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleDelete = () => {
-    if (!selectedLead) {
-      toast.error("Please select a lead to delete");
+  const handleSubmit = () => {
+    if (!formData.fullName || !formData.companyName || !formData.jobTitle || !formData.email || !formData.phone || !formData.leadSource) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields.",
+        variant: "destructive",
+      })
       return;
     }
-    onDeleteLead();
-    toast.success("Lead deleted successfully");
+
+    addLead({
+      name: formData.fullName,
+      company: formData.companyName,
+      position: formData.jobTitle,
+      email: formData.email,
+      phone: formData.phone,
+      leadSource: formData.leadSource
+    });
+    setOpen(false);
+    setFormData({
+      fullName: '',
+      companyName: '',
+      jobTitle: '',
+      email: '',
+      phone: '',
+      leadSource: ''
+    });
+    toast({
+      title: "Success",
+      description: "Lead added successfully.",
+    })
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className="bg-cyan-500 hover:bg-cyan-600">
-          <Plus className="h-4 w-4 mr-2" />
-          Lead Actions
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline">
+          <Plus className="mr-2 h-4 w-4" />
+          Add Lead
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-slate-900 border-white/10">
-        <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-          <DialogTrigger asChild>
-            <DropdownMenuItem className="text-white hover:bg-slate-800">
-              <Plus className="h-4 w-4 mr-2" />
-              Add New Lead
-            </DropdownMenuItem>
-          </DialogTrigger>
-          <DialogContent className="bg-slate-900 text-white border border-white/10">
-            <DialogHeader>
-              <DialogTitle>Add New Lead</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <Input
-                placeholder="Full Name"
-                value={formData.fullName}
-                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                className="bg-slate-800 border-white/10"
-                required
-              />
-              <Input
-                placeholder="Company Name"
-                value={formData.companyName}
-                onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                className="bg-slate-800 border-white/10"
-                required
-              />
-              <Input
-                placeholder="Job Title"
-                value={formData.jobTitle}
-                onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
-                className="bg-slate-800 border-white/10"
-                required
-              />
-              <Input
-                placeholder="Email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-slate-800 border-white/10"
-                required
-              />
-              <Input
-                placeholder="Phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="bg-slate-800 border-white/10"
-                required
-              />
-              <Input
-                placeholder="Lead Source"
-                value={formData.leadSource}
-                onChange={(e) => setFormData({ ...formData, leadSource: e.target.value })}
-                className="bg-slate-800 border-white/10"
-                required
-              />
-              <Button type="submit" className="w-full bg-cyan-500 hover:bg-cyan-600">
-                Add Lead
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
-        <DropdownMenuSeparator className="bg-white/10" />
-        <DropdownMenuItem onClick={handleDelete} className="text-red-500 hover:bg-slate-800">
-          <Trash2 className="h-4 w-4 mr-2" />
-          Delete Selected Lead
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Add New Lead</AlertDialogTitle>
+          <AlertDialogDescription>
+            Fill in the information for the new lead.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="fullName" className="text-right">
+              Full Name
+            </Label>
+            <Input type="text" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="companyName" className="text-right">
+              Company Name
+            </Label>
+            <Input type="text" id="companyName" name="companyName" value={formData.companyName} onChange={handleChange} className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="jobTitle" className="text-right">
+              Job Title
+            </Label>
+            <Input type="text" id="jobTitle" name="jobTitle" value={formData.jobTitle} onChange={handleChange} className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="email" className="text-right">
+              Email
+            </Label>
+            <Input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="phone" className="text-right">
+              Phone
+            </Label>
+            <Input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="leadSource" className="text-right">
+              Lead Source
+            </Label>
+            <Input type="text" id="leadSource" name="leadSource" value={formData.leadSource} onChange={handleChange} className="col-span-3" />
+          </div>
+        </div>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleSubmit}>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

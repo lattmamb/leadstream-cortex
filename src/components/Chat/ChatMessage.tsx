@@ -15,20 +15,13 @@ export const ChatMessage = ({
   return (
     <div
       className={cn(
-        "flex w-full mb-4 animate-fade-up",
-        isAI ? "justify-start" : "justify-end"
+        "w-full px-4 py-6 animate-fade-up",
+        isAI ? "bg-transparent" : "bg-[#2A2F3C]/50"
       )}
     >
-      <div
-        className={cn(
-          "max-w-[80%] px-4 py-3 rounded-2xl backdrop-blur-md",
-          isAI
-            ? "bg-black/20 text-white/90 border border-white/10"
-            : "bg-primary text-white border border-primary/20 ml-auto"
-        )}
-      >
-        <p className="text-sm md:text-base whitespace-pre-line">{message}</p>
-        <span className="text-xs opacity-50 mt-1 block">{timestamp}</span>
+      <div className="max-w-3xl mx-auto">
+        <p className="text-sm md:text-base text-white/90 whitespace-pre-line">{message}</p>
+        <span className="text-xs text-white/30 mt-2 block">{timestamp}</span>
       </div>
     </div>
   );

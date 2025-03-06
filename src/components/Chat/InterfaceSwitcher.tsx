@@ -8,13 +8,13 @@ interface InterfaceSwitcherProps {
 
 export const InterfaceSwitcher = ({ showV0Interface, toggleChatInterface }: InterfaceSwitcherProps) => {
   return (
-    <div className="relative z-10 flex justify-end mb-2 px-4">
+    <div className="relative z-10 flex justify-end mb-2 px-4 pt-4">
       <Button 
         variant="outline" 
-        className="text-xs bg-white/10 text-white border-white/20 hover:bg-white/20"
+        className="text-xs bg-[#2A2F3C]/50 text-white/70 border-[#2A2F3C]/80 hover:bg-[#2A2F3C]/80"
         onClick={toggleChatInterface}
       >
-        {showV0Interface ? "Switch to Standard Chat" : "Try V0 Interface"}
+        {showV0Interface ? "Back to Chat" : "Try V0 Interface"}
       </Button>
     </div>
   );

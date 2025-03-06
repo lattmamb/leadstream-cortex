@@ -27,25 +27,29 @@ export const MessageList = ({ messages, isLoading }: MessageListProps) => {
   }, [messages]);
 
   return (
-    <div className="relative z-10 flex-1 overflow-y-auto p-4 bg-transparent">
-      {messages.map((message, index) => (
-        <ChatMessage key={index} message={message.text} isAI={message.isAI} />
-      ))}
-      {isLoading && (
-        <div className="py-4">
-          <TextShimmerWave
-            className="text-primary font-mono text-sm"
-            duration={1}
-            spread={1}
-            zDistance={3}
-            scaleDistance={1.1}
-            rotateYDistance={15}
-          >
-            AI is thinking...
-          </TextShimmerWave>
-        </div>
-      )}
-      <div ref={messagesEndRef} />
+    <div className="relative z-10 flex-1 overflow-y-auto">
+      <div className="pb-20">
+        {messages.map((message, index) => (
+          <ChatMessage key={index} message={message.text} isAI={message.isAI} />
+        ))}
+        {isLoading && (
+          <div className="w-full px-4 py-6">
+            <div className="max-w-3xl mx-auto">
+              <TextShimmerWave
+                className="text-primary/80 font-mono text-sm"
+                duration={1}
+                spread={1}
+                zDistance={3}
+                scaleDistance={1.1}
+                rotateYDistance={15}
+              >
+                Thinking...
+              </TextShimmerWave>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
     </div>
   );
 };

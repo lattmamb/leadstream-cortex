@@ -1,4 +1,3 @@
-
 import { Header } from "@/components/Layout/Header";
 import { AppSidebar } from "@/components/Layout/AppSidebar";
 import { LeadsSidebar } from "@/components/Leads/LeadsSidebar";
@@ -8,7 +7,6 @@ import { Vortex } from "@/components/ui/vortex";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-// Define the Lead interface to match what's being used in the components
 export interface Lead {
   id: string;
   name: string;
@@ -22,11 +20,10 @@ export interface Lead {
   leadScore?: number;
   leadSource?: string;
   priority?: "Low" | "Medium" | "High";
-  // Aliases for backward compatibility
-  fullName?: string; // alias for name
-  companyName?: string; // alias for company
-  jobTitle?: string; // alias for position
-  lastContactedDate?: string; // alias for lastContacted
+  fullName?: string;
+  companyName?: string;
+  jobTitle?: string;
+  lastContactedDate?: string;
 }
 
 const Leads = () => {
@@ -34,16 +31,16 @@ const Leads = () => {
     {
       id: '1',
       name: 'John Smith',
-      fullName: 'John Smith', // For backward compatibility
+      fullName: 'John Smith',
       company: 'TechNova Inc',
-      companyName: 'TechNova Inc', // For backward compatibility
+      companyName: 'TechNova Inc',
       email: 'john.smith@technova.com',
       position: 'CTO',
-      jobTitle: 'CTO', // For backward compatibility
+      jobTitle: 'CTO',
       status: 'New',
       phone: '(555) 123-4567',
       lastContacted: '2023-08-15',
-      lastContactedDate: '2023-08-15', // For backward compatibility
+      lastContactedDate: '2023-08-15',
       leadScore: 85,
       leadSource: 'Website',
       priority: 'High'
@@ -51,16 +48,16 @@ const Leads = () => {
     {
       id: '2',
       name: 'Sarah Johnson',
-      fullName: 'Sarah Johnson', // For backward compatibility
+      fullName: 'Sarah Johnson',
       company: 'Quantum Solutions',
-      companyName: 'Quantum Solutions', // For backward compatibility
+      companyName: 'Quantum Solutions',
       email: 'sarah.j@quantumsol.com',
       position: 'VP of Operations',
-      jobTitle: 'VP of Operations', // For backward compatibility
+      jobTitle: 'VP of Operations',
       status: 'Contacted',
       phone: '(555) 987-6543',
       lastContacted: '2023-08-10',
-      lastContactedDate: '2023-08-10', // For backward compatibility
+      lastContactedDate: '2023-08-10',
       leadScore: 70,
       leadSource: 'LinkedIn',
       priority: 'Medium'
@@ -68,16 +65,16 @@ const Leads = () => {
     {
       id: '3',
       name: 'Michael Chen',
-      fullName: 'Michael Chen', // For backward compatibility
+      fullName: 'Michael Chen',
       company: 'DataSphere Analytics',
-      companyName: 'DataSphere Analytics', // For backward compatibility
+      companyName: 'DataSphere Analytics',
       email: 'm.chen@datasphere.ai',
       position: 'Head of Innovation',
-      jobTitle: 'Head of Innovation', // For backward compatibility
+      jobTitle: 'Head of Innovation',
       status: 'Qualified',
       phone: '(555) 456-7890',
       lastContacted: '2023-08-05',
-      lastContactedDate: '2023-08-05', // For backward compatibility
+      lastContactedDate: '2023-08-05',
       leadScore: 65,
       leadSource: 'Referral',
       priority: 'Low'
@@ -111,7 +108,7 @@ const Leads = () => {
         >
           <Vortex
             backgroundColor="#1A1F2C"
-            baseHue={350} // Tesla red hue
+            baseHue={350}
             rangeY={300}
             particleCount={600}
             baseSpeed={0.2}
@@ -140,6 +137,7 @@ const Leads = () => {
                     leads={leads} 
                     onLeadSelect={handleLeadSelect} 
                     searchQuery={searchQuery} 
+                    deleteLead={(id) => deleteLead(id)} 
                   />
                 </div>
               </div>
