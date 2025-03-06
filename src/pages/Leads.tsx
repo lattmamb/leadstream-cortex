@@ -6,6 +6,7 @@ import { AddLeadButton } from "@/components/Leads/AddLeadButton";
 import { Vortex } from "@/components/ui/vortex";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export interface Lead {
   id: string;
@@ -84,8 +85,31 @@ const Leads = () => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleAddLead = (lead: Lead) => {
-    setLeads([...leads, lead]);
+  const handleAddLead = (leadData: { 
+    name: string; 
+    company: string; 
+    position: string; 
+    email: string; 
+    phone: string; 
+    leadSource: string; 
+  }) => {
+    const newLead: Lead = {
+      id: uuidv4(),
+      name: leadData.name,
+      company: leadData.company,
+      email: leadData.email,
+      phone: leadData.phone,
+      position: leadData.position,
+      status: "New",
+      leadSource: leadData.leadSource,
+      createdAt: new Date(),
+      fullName: leadData.name,
+      companyName: leadData.company,
+      jobTitle: leadData.position,
+      priority: "Medium"
+    };
+    
+    setLeads([...leads, newLead]);
   };
 
   const handleDeleteLead = (id: string) => {
