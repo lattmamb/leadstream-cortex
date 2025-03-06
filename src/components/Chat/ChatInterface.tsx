@@ -24,7 +24,10 @@ export const ChatInterface = () => {
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-white relative overflow-hidden">
-      <ChatBackground showV0Interface={showV0Interface} />
+      <ChatBackground 
+        showV0Interface={showV0Interface} 
+        currentMode={currentMode}
+      />
       
       <InterfaceSwitcher 
         showV0Interface={showV0Interface}
