@@ -99,7 +99,10 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({
     {
       accessorKey: 'createdAt',
       header: 'Created At',
-      cell: ({ row }) => row.getValue('createdAt')?.toLocaleDateString(),
+      cell: ({ row }) => {
+        const value = row.getValue('createdAt');
+        return value instanceof Date ? value.toLocaleDateString() : '';
+      },
     },
     {
       id: 'actions',
