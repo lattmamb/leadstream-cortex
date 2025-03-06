@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/Layout/Header";
 import { AppSidebar } from "@/components/Layout/AppSidebar";
 import { LeadsSidebar } from "@/components/Leads/LeadsSidebar";
@@ -13,7 +14,7 @@ export interface Lead {
   name: string;
   company: string;
   email: string;
-  phone?: string;
+  phone?: string; // Making phone optional to match the interface
   position: string;
   status: "New" | "Contacted" | "Qualified" | "Proposal" | "Negotiation" | "Closed" | "Lost";
   lastContacted?: string;
@@ -98,7 +99,7 @@ const Leads = () => {
       name: leadData.name,
       company: leadData.company,
       email: leadData.email,
-      phone: leadData.phone,
+      phone: leadData.phone, // This is now optional, so it's fine if it's undefined
       position: leadData.position,
       status: "New",
       leadSource: leadData.leadSource,
@@ -159,7 +160,6 @@ const Leads = () => {
                 </div>
                 <div className="flex-1 bg-slate-900/40 backdrop-blur-md rounded-lg border border-white/10 overflow-hidden shadow-xl">
                   <LeadsTable 
-                    data={[]}
                     leads={leads} 
                     onLeadSelect={handleLeadSelect} 
                     searchQuery={searchQuery} 

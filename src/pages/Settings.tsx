@@ -3,9 +3,11 @@ import { Header } from "@/components/Layout/Header";
 import { AppSidebar } from "@/components/Layout/AppSidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { Key, Save, Eye, EyeOff } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Label } from "@/components/ui/label";
 
 const Settings = () => {
   const { toast } = useToast();
@@ -21,6 +23,10 @@ const Settings = () => {
     huggingface: false,
   });
 
+  const [splashCursorEnabled, setSplashCursorEnabled] = useState(
+    localStorage.getItem("splash_cursor_enabled") === "true"
+  );
+
   const handleSave = () => {
     try {
       Object.entries(apiKeys).forEach(([key, value]) => {
@@ -33,14 +39,17 @@ const Settings = () => {
         }
       });
 
+      // Save splash cursor setting
+      localStorage.setItem("splash_cursor_enabled", splashCursorEnabled.toString());
+
       toast({
         title: "Settings saved",
-        description: "Your API keys have been saved successfully.",
+        description: "Your settings have been saved successfully.",
       });
     } catch (error) {
       toast({
         title: "Error saving settings",
-        description: "There was a problem saving your API keys.",
+        description: "There was a problem saving your settings.",
         variant: "destructive",
       });
     }
@@ -70,6 +79,9 @@ const Settings = () => {
       huggingface: localStorage.getItem("huggingface_api_key") || "",
     };
     setApiKeys(loadedKeys);
+    
+    // Load splash cursor setting
+    setSplashCursorEnabled(localStorage.getItem("splash_cursor_enabled") === "true");
   }, []);
 
   return (
@@ -80,6 +92,7 @@ const Settings = () => {
         <div className="flex-1 p-8">
           <h1 className="text-2xl font-bold text-white mb-6">Settings</h1>
           <div className="grid gap-6">
+            {/* API Keys Section */}
             <div className="p-6 bg-slate-900/50 backdrop-blur-md rounded-lg border border-white/10">
               <div className="flex items-center gap-2 mb-4">
                 <Key className="h-5 w-5 text-white/70" />
@@ -173,16 +186,35 @@ const Settings = () => {
                     </div>
                   </div>
                 </div>
-
-                <Button
-                  onClick={handleSave}
-                  className="w-full mt-4 bg-white/10 hover:bg-white/20 text-white border border-white/10"
-                >
-                  <Save className="h-4 w-4 mr-2" />
-                  Save API Keys
-                </Button>
               </div>
             </div>
+
+            {/* Visual Effects Section */}
+            <div className="p-6 bg-slate-900/50 backdrop-blur-md rounded-lg border border-white/10">
+              <h2 className="text-lg font-semibold text-white mb-4">Visual Effects</h2>
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <Label htmlFor="splash-cursor" className="text-white">Fluid Cursor Effect</Label>
+                    <p className="text-sm text-white/60">Enable fluid dynamic cursor effect (may impact performance)</p>
+                  </div>
+                  <Switch 
+                    id="splash-cursor"
+                    checked={splashCursorEnabled}
+                    onCheckedChange={setSplashCursorEnabled}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <Button
+              onClick={handleSave}
+              className="w-full mt-4 bg-white/10 hover:bg-white/20 text-white border border-white/10"
+            >
+              <Save className="h-4 w-4 mr-2" />
+              Save Settings
+            </Button>
           </div>
         </div>
       </div>
