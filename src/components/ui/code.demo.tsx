@@ -1,10 +1,11 @@
 
 import React from "react";
 import { Vortex } from "@/components/ui/vortex";
+import { VercelV0Chat } from "@/components/ui/v0-ai-chat";
 
 function Section() {
   return (
-    <div className="w-[calc(100%-4rem)] mx-auto rounded-md  h-[30rem] overflow-hidden">
+    <div className="w-[calc(100%-4rem)] mx-auto rounded-md h-[30rem] overflow-hidden">
       <Vortex
         backgroundColor="black"
         className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
@@ -20,7 +21,7 @@ function Section() {
           <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
             Order now
           </button>
-          <button className="px-4 py-2  text-white ">Watch trailer</button>
+          <button className="px-4 py-2 text-white">Watch trailer</button>
         </div>
       </Vortex>
     </div>
@@ -29,13 +30,13 @@ function Section() {
 
 function FullPage() {
   return (
-    <div className="w-[calc(100%-4rem)] mx-auto rounded-md  h-screen overflow-hidden">
+    <div className="w-[calc(100%-4rem)] mx-auto rounded-md h-screen overflow-hidden">
       <Vortex
         backgroundColor="black"
         rangeY={800}
         particleCount={500}
         baseHue={120}
-        className="flex items-center flex-col justify-center px-2 md:px-10  py-4 w-full h-full"
+        className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
       >
         <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
           The hell is this?
@@ -48,11 +49,29 @@ function FullPage() {
           <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
             Order now
           </button>
-          <button className="px-4 py-2  text-white ">Watch trailer</button>
+          <button className="px-4 py-2 text-white">Watch trailer</button>
         </div>
       </Vortex>
     </div>
   );
+}
+
+export function ThreeDPhotoCarouselDemo() {
+  return (
+    <div className="w-full max-w-4xl">
+      <div className="min-h-[500px] flex flex-col justify-center border border-dashed rounded-lg space-y-4">
+        <div className="p-2">
+          <div className="w-full h-[500px]">
+            {/* Your carousel demo content here */}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Demo() {
+  return <VercelV0Chat />;
 }
 
 export { Section, FullPage };
