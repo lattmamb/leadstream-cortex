@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Plus } from 'lucide-react';
 import {
@@ -16,11 +17,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 
-interface AddLeadButtonProps {
+export interface AddLeadButtonProps {
   addLead: (lead: { name: string; company: string; position: string; email: string; phone: string; leadSource: string; }) => void;
+  onAddLead?: (lead: any) => void;
+  onDeleteLead?: (id: string) => void;
+  selectedLead?: any;
 }
 
-export const AddLeadButton = ({ addLead }: AddLeadButtonProps) => {
+export const AddLeadButton = ({ addLead, onAddLead, onDeleteLead, selectedLead }: AddLeadButtonProps) => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -49,14 +53,22 @@ export const AddLeadButton = ({ addLead }: AddLeadButtonProps) => {
       return;
     }
 
-    addLead({
+    const newLead = {
       name: formData.fullName,
       company: formData.companyName,
       position: formData.jobTitle,
       email: formData.email,
       phone: formData.phone,
       leadSource: formData.leadSource
-    });
+    };
+
+    // Use either addLead or onAddLead depending on which one is provided
+    if (addLead) {
+      addLead(newLead);
+    } else if (onAddLead) {
+      onAddLead(newLead);
+    }
+
     setOpen(false);
     setFormData({
       fullName: '',

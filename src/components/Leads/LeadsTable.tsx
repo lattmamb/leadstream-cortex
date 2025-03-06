@@ -22,13 +22,43 @@ interface Lead {
 interface LeadsTableProps {
   data: Lead[];
   deleteLead: (id: string) => void;
+  leads?: Lead[];
+  onLeadSelect?: (lead: Lead) => void;
+  searchQuery?: string;
 }
 
-export const LeadsTable: React.FC<LeadsTableProps> = ({ data, deleteLead }) => {
+export const LeadsTable: React.FC<LeadsTableProps> = ({ 
+  data, 
+  deleteLead, 
+  leads = [], 
+  onLeadSelect, 
+  searchQuery = "" 
+}) => {
+  const tableData = leads.length > 0 ? leads : data;
+  
+  const filteredData = searchQuery 
+    ? tableData.filter(lead => 
+        lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        lead.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        lead.email.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : tableData;
+
   const columns: ColumnDef<Lead>[] = [
     {
       accessorKey: 'name',
       header: 'Name',
+      cell: ({ row }) => {
+        const lead = row.original;
+        return (
+          <div 
+            className="cursor-pointer hover:text-blue-500" 
+            onClick={() => onLeadSelect && onLeadSelect(lead)}
+          >
+            {lead.name}
+          </div>
+        );
+      }
     },
     {
       accessorKey: 'company',
@@ -53,10 +83,6 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ data, deleteLead }) => {
     {
       accessorKey: 'status',
       header: 'Status',
-    },
-    {
-      accessorKey: 'priority',
-      header: 'Priority',
       cell: ({ row }) => {
         const lead = row.original;
         let priorityColor = 'text-gray-500';
@@ -90,7 +116,7 @@ export const LeadsTable: React.FC<LeadsTableProps> = ({ data, deleteLead }) => {
   ];
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });

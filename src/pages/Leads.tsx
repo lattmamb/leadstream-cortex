@@ -24,6 +24,7 @@ export interface Lead {
   companyName?: string;
   jobTitle?: string;
   lastContactedDate?: string;
+  createdAt?: Date;
 }
 
 const Leads = () => {
@@ -119,25 +120,26 @@ const Leads = () => {
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold text-white">Leads</h1>
                 <AddLeadButton 
-                  onAddLead={handleAddLead} 
-                  onDeleteLead={handleDeleteLead} 
-                  selectedLead={selectedLead} 
+                  addLead={handleAddLead}
                 />
               </div>
               
               <div className="flex gap-4 h-[calc(100vh-10rem)]">
                 <div className="w-64 hidden lg:block">
-                  <LeadsSidebar 
-                    lead={selectedLead} 
-                    onClose={() => setSelectedLead(null)} 
-                  />
+                  {selectedLead && (
+                    <LeadsSidebar 
+                      lead={selectedLead} 
+                      onClose={() => setSelectedLead(null)} 
+                    />
+                  )}
                 </div>
                 <div className="flex-1 bg-slate-900/40 backdrop-blur-md rounded-lg border border-white/10 overflow-hidden shadow-xl">
                   <LeadsTable 
+                    data={[]}
                     leads={leads} 
                     onLeadSelect={handleLeadSelect} 
                     searchQuery={searchQuery} 
-                    deleteLead={(id) => deleteLead(id)} 
+                    deleteLead={handleDeleteLead} 
                   />
                 </div>
               </div>
