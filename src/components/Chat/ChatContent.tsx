@@ -3,7 +3,7 @@ import { VercelV0Chat } from "@/components/ui/v0-ai-chat";
 import { WelcomeScreen } from "./WelcomeScreen";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
-import { Bot } from "lucide-react";
+import { RecentChat } from "@/hooks/useChat";
 
 interface ChatContentProps {
   showV0Interface: boolean;
@@ -12,6 +12,10 @@ interface ChatContentProps {
   setInput: (value: string) => void;
   isLoading: boolean;
   handleSubmit: (e: React.FormEvent) => void;
+  recentChats: RecentChat[];
+  selectChat: (chat: RecentChat) => void;
+  deleteChat: (id: string) => void;
+  createNewChat: () => void;
 }
 
 export const ChatContent = ({
@@ -20,7 +24,11 @@ export const ChatContent = ({
   input,
   setInput,
   isLoading,
-  handleSubmit
+  handleSubmit,
+  recentChats,
+  selectChat,
+  deleteChat,
+  createNewChat
 }: ChatContentProps) => {
   return (
     <>
@@ -40,6 +48,10 @@ export const ChatContent = ({
             setInput={setInput}
             handleSubmit={handleSubmit}
             isLoading={isLoading}
+            recentChats={recentChats}
+            selectChat={selectChat}
+            deleteChat={deleteChat}
+            createNewChat={createNewChat}
           />
         </div>
       )}

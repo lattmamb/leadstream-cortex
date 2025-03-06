@@ -12,7 +12,11 @@ export const ChatInterface = () => {
     isLoading,
     showV0Interface,
     handleSubmit,
-    toggleChatInterface
+    toggleChatInterface,
+    recentChats,
+    selectChat,
+    deleteChat,
+    createNewChat
   } = useChat();
 
   return (
@@ -32,6 +36,10 @@ export const ChatInterface = () => {
           setInput={setInput}
           isLoading={isLoading}
           handleSubmit={handleSubmit}
+          recentChats={recentChats}
+          selectChat={selectChat}
+          deleteChat={deleteChat}
+          createNewChat={createNewChat}
         />
       </div>
     </div>

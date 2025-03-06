@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { SwitchHorizontal } from "lucide-react";
+import { ArrowRightLeft } from "lucide-react";
 
 interface InterfaceSwitcherProps {
   showV0Interface: boolean;
@@ -16,7 +16,7 @@ export const InterfaceSwitcher = ({ showV0Interface, toggleChatInterface }: Inte
         className="text-xs bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-100"
         onClick={toggleChatInterface}
       >
-        <SwitchHorizontal size={14} className="mr-1" />
+        <ArrowRightLeft size={14} className="mr-1" />
         {showV0Interface ? "ChatGPT Style" : "V0 Style"}
       </Button>
     </div>
